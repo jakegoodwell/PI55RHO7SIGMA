@@ -1,0 +1,14 @@
+<a href="https://www.theguardian.com/technology/2016/dec/15/passwords-hacking-hashing-salting-sha-2"
+>an excellent article from the Guardian on hashing and salting</a>.</p><p>Having added that, we need 
+to import the hash functions, plus another one that we're about to use, by adding this linejust after 
+the imports from <code>flask_login</code>:</p><pre><code>from werkzeug.security import check_password_hash, 
+generate_password_hash</code></pre><p>Now, let's specify a couple of users.  Normallya website would keep its list 
+of users in the database -- and we'll change things to do that later -- but fornow, we'll just keep them in our code. 
+Add this just after the <code>User</code> class:</p><pre><code>all_users = 
+{    "admin": User("admin", generate_password_hash("secret")),   
+"bob": User("bob", generate_password_hash("less-secret")),    
+"caroline": User("caroline", generate_password_hash("completely-secret")),}
+</code></pre><p>(Of course, having done all of that clever stuff so that we 
+don't have the passwords in plaintext, we'renow adding code with... the passwords in plaintext.  
+Don't worry -- that's going to change by the end of thistutorial!)</p><p>So that's a dictonary that maps from 
+the username to the user object for three users.
